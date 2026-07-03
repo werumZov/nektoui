@@ -34,7 +34,7 @@ local Success, Response = pcall(function()
 end)
 
 if not Success then
-	warn("\nOrion Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
+	warn("\т Nekto Library - Failed to load Feather Icons. Error code: " .. Response .. "\n")
 end	
 
 local function GetIcon(IconName)
@@ -46,7 +46,7 @@ local function GetIcon(IconName)
 end   
 
 local Orion = Instance.new("ScreenGui")
-Orion.Name = "Orion"
+Orion.Name = "NektoUI"
 if syn then
 	syn.protect_gui(Orion)
 	Orion.Parent = game.CoreGui
@@ -223,7 +223,7 @@ local function LoadCfg(Config)
 				end    
 			end)
 		else
-			warn("Orion Library Config Loader - Could not find ", a ,b)
+			warn("Nekto Library Config Loader - Could not find ", a ,b)
 		end
 	end)
 end
@@ -500,8 +500,8 @@ function OrionLib:MakeWindow(WindowConfig)
 				pcall(function()
 					reporter:windowCreated({
 						script_name       = WindowConfig.Name,
-						script_version    = 'Orion Stable',
-						interface_version = 'Orion UI Stable',
+						script_version    = 'Nekto Stable',
+						interface_version = 'Nekto UI Stable',
 						config_saving     = WindowConfig.SaveConfig,
 					})
 				end)
@@ -676,7 +676,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		OrionLib:MakeNotification({
 			Name = "Interface Hidden",
 			Content = "Tap RightShift to reopen the interface",
-			Time = 5
+			Time = 6
 		})
 		WindowConfig.CloseCallback()
 	end)
