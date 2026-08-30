@@ -45,8 +45,23 @@ local function GetIcon(IconName)
 	end
 end   
 
+local function generateRandomString()
+	local letters = "abcdefghijklmnopqrstuvwxyz"
+	local digits = "0123456789"
+	local allChars = letters .. digits
+	local length = math.random(10, 15)
+	local result = ""
+	for i = 1, length do
+		local index = math.random(1, #allChars)
+		result = result .. allChars:sub(index, index)
+	end
+	return result
+end
+
+local Randomly_character = generateRandomString()
+
 local Orion = Instance.new("ScreenGui")
-Orion.Name = "NektoUI"
+Orion.Name = Randomly_character
 if syn then
 	syn.protect_gui(Orion)
 	Orion.Parent = game.CoreGui
