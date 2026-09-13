@@ -7,8 +7,8 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
 -- Увеличенные размеры интерфейса
-local WINDOW_WIDTH = 850
-local WINDOW_HEIGHT = 500
+local WINDOW_WIDTH = 680
+local WINDOW_HEIGHT = 420
 local SIDEBAR_WIDTH = 200
 
 local OrionLib = {
@@ -568,7 +568,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		Size = UDim2.new(1, 0, 0, 50)
 	})
 
-	local WindowStuff = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+	local WindowStuff = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0.38, 10), {
 		Size = UDim2.new(0, SIDEBAR_WIDTH, 1, -50),
 		Position = UDim2.new(0, 0, 0, 50)
 	}), {
@@ -691,12 +691,12 @@ function OrionLib:MakeWindow(WindowConfig)
 		Parent = Orion,
 		Size = UDim2.new(0, 135, 0, 42),
 		Position = UDim2.new(0.5, -67, 1, -62),
-		BackgroundTransparency = 0.25,
-		Visible = false,
+		BackgroundTransparency = 0.45,
+		Visible = true,
 		ZIndex = 100
 	}), {
 		AddThemeObject(MakeElement("Stroke", nil, 1), "Stroke"),
-		AddThemeObject(SetProps(MakeElement("Label", "OPEN MENU", 14), {
+		AddThemeObject(SetProps(MakeElement("Label", "CLOSE MENU", 14), {
 			Size = UDim2.new(1, 0, 1, 0),
 			TextXAlignment = Enum.TextXAlignment.Center,
 			Font = Enum.Font.GothamBold,
@@ -710,12 +710,15 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	-- OPEN MENU — единственный способ скрыть/открыть интерфейс.
 	-- Кнопка всегда остаётся внизу по центру экрана и работает как переключатель.
+	local OpenButtonLabel = OpenButton:FindFirstChildWhichIsA("TextLabel")
 	local OpenButtonClick = OpenButton:FindFirstChildWhichIsA("TextButton")
 	if OpenButtonClick then
 		AddConnection(OpenButtonClick.MouseButton1Click, function()
 			UIHidden = not UIHidden
 			MainWindow.Visible = not UIHidden
-			OpenButton.Visible = true
+			if OpenButtonLabel then
+				OpenButtonLabel.Text = UIHidden and "OPEN MENU" or "CLOSE MENU"
+			end
 		end)
 	end
 
