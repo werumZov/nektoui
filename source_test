@@ -687,11 +687,11 @@ function OrionLib:MakeWindow(WindowConfig)
 	AddDraggingFunctionality(DragPoint, MainWindow)
 
 	-- Отдельная кнопка для открытия скрытого меню
-	local OpenButton = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0.25, 8), {
+	local OpenButton = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
 		Parent = Orion,
 		Size = UDim2.new(0, 135, 0, 42),
 		Position = UDim2.new(0.5, -67, 1, -62),
-		BackgroundTransparency = 0.45,
+		BackgroundTransparency = 0,
 		Visible = true,
 		ZIndex = 100
 	}), {
