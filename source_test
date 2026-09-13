@@ -708,33 +708,26 @@ function OrionLib:MakeWindow(WindowConfig)
 		})
 	}), "Second")
 
+	-- OPEN MENU — единственный способ скрыть/открыть интерфейс.
+	-- Кнопка всегда остаётся внизу по центру экрана и работает как переключатель.
 	local OpenButtonClick = OpenButton:FindFirstChildWhichIsA("TextButton")
 	if OpenButtonClick then
 		AddConnection(OpenButtonClick.MouseButton1Click, function()
-			MainWindow.Visible = true
-			UIHidden = false
-			OpenButton.Visible = false
+			UIHidden = not UIHidden
+			MainWindow.Visible = not UIHidden
+			OpenButton.Visible = true
 		end)
 	end
 
+	-- Стандартная кнопка X больше не закрывает меню.
 	AddConnection(CloseBtn.MouseButton1Up, function()
-		MainWindow.Visible = false
-		UIHidden = true
-		OpenButton.Visible = true
-		OrionLib:MakeNotification({
-			Name = "Interface Hidden",
-			Content = "Нажми OPEN MENU внизу экрана, чтобы открыть меню снова",
-			Time = 6
-		})
-		WindowConfig.CloseCallback()
+		MainWindow.Visible = true
+		UIHidden = false
 	end)
 
+	-- RightShift больше не используется для закрытия/открытия меню.
 	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode == Enum.KeyCode.RightShift and UIHidden then
-			MainWindow.Visible = true
-			UIHidden = false
-			OpenButton.Visible = false
-		end
+		-- Оставлено намеренно пустым.
 	end)
 
 	AddConnection(MinimizeBtn.MouseButton1Up, function()
@@ -758,7 +751,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 	local function LoadSequence()
-		OpenButton.Visible = false
+		OpenButton.Visible = true
 		MainWindow.Visible = false
 		local LoadSequenceLogo = SetProps(MakeElement("Image", WindowConfig.IntroIcon), {
 			Parent = Orion,
