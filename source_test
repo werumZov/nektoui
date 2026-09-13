@@ -6,11 +6,6 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
--- Увеличенные размеры интерфейса
-local WINDOW_WIDTH = 680
-local WINDOW_HEIGHT = 420
-local SIDEBAR_WIDTH = 200
-
 local OrionLib = {
 	Elements = {},
 	ThemeObjects = {},
@@ -568,8 +563,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		Size = UDim2.new(1, 0, 0, 50)
 	})
 
-	local WindowStuff = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0.38, 0), {
-		Size = UDim2.new(0, SIDEBAR_WIDTH, 1, -50),
+	local WindowStuff = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+		Size = UDim2.new(0, 150, 1, -50),
 		Position = UDim2.new(0, 0, 0, 50)
 	}), {
 		AddThemeObject(SetProps(MakeElement("Frame"), {
@@ -641,8 +636,8 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	local MainWindow = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
 		Parent = Orion,
-		Position = UDim2.new(0.5, -WINDOW_WIDTH / 2, 0.5, -WINDOW_HEIGHT / 2),
-		Size = UDim2.new(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT),
+		Position = UDim2.new(0.5, -307, 0.5, -172),
+		Size = UDim2.new(0, 615, 0, 344),
 		ClipsDescendants = true
 	}), {
 		--SetProps(MakeElement("Image", "rbxassetid://3523728077"), {
@@ -685,8 +680,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	end	
 
 	AddDraggingFunctionality(DragPoint, MainWindow)
-
-	-- Отдельная кнопка для открытия скрытого меню
+	
 	local OpenButton = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
 		Parent = Orion,
 		Size = UDim2.new(0, 135, 0, 42),
@@ -708,9 +702,7 @@ function OrionLib:MakeWindow(WindowConfig)
 			ZIndex = 102
 		})
 	}), "Second")
-
-	-- OPEN MENU — единственный способ скрыть/открыть интерфейс.
-	-- Кнопка всегда остаётся внизу по центру экрана и работает как переключатель.
+	
 	local OpenButtonLabel = OpenButton:FindFirstChildWhichIsA("TextLabel")
 	local OpenButtonClick = OpenButton:FindFirstChildWhichIsA("TextButton")
 	if OpenButtonClick then
@@ -724,7 +716,6 @@ function OrionLib:MakeWindow(WindowConfig)
 		end)
 	end
 
-	-- Стандартная кнопка X больше не закрывает меню.
 	AddConnection(CloseBtn.MouseButton1Up, function()
 		MainWindow.Visible = true
 		UIHidden = false
@@ -737,7 +728,7 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	AddConnection(MinimizeBtn.MouseButton1Up, function()
 		if Minimized then
-			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)}):Play()
+			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
 			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 			wait(.02)
 			MainWindow.ClipsDescendants = false
@@ -756,7 +747,6 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 	local function LoadSequence()
-		OpenButton.Visible = true
 		MainWindow.Visible = false
 		local LoadSequenceLogo = SetProps(MakeElement("Image", WindowConfig.IntroIcon), {
 			Parent = Orion,
@@ -801,19 +791,19 @@ function OrionLib:MakeWindow(WindowConfig)
 		TabConfig.PremiumOnly = TabConfig.PremiumOnly or false
 
 		local TabFrame = SetChildren(SetProps(MakeElement("Button"), {
-			Size = UDim2.new(1, 0, 0, 38),
+			Size = UDim2.new(1, 0, 0, 30),
 			Parent = TabHolder
 		}), {
 			AddThemeObject(SetProps(MakeElement("Image", TabConfig.Icon), {
 				AnchorPoint = Vector2.new(0, 0.5),
-				Size = UDim2.new(0, 22, 0, 22),
-				Position = UDim2.new(0, 12, 0.5, 0),
+				Size = UDim2.new(0, 18, 0, 18),
+				Position = UDim2.new(0, 10, 0.5, 0),
 				ImageTransparency = 0.4,
 				Name = "Ico"
 			}), "Text"),
 			AddThemeObject(SetProps(MakeElement("Label", TabConfig.Name, 14), {
-				Size = UDim2.new(1, -45, 1, 0),
-				Position = UDim2.new(0, 45, 0, 0),
+				Size = UDim2.new(1, -35, 1, 0),
+				Position = UDim2.new(0, 35, 0, 0),
 				Font = Enum.Font.GothamSemibold,
 				TextTransparency = 0.4,
 				Name = "Title"
@@ -825,8 +815,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		end	
 
 		local Container = AddThemeObject(SetChildren(SetProps(MakeElement("ScrollFrame", Color3.fromRGB(255, 255, 255), 5), {
-			Size = UDim2.new(1, -SIDEBAR_WIDTH, 1, -50),
-			Position = UDim2.new(0, SIDEBAR_WIDTH, 0, 50),
+			Size = UDim2.new(1, -150, 1, -50),
+			Position = UDim2.new(0, 150, 0, 50),
 			Parent = MainWindow,
 			Visible = false,
 			Name = "ItemContainer"
@@ -940,7 +930,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				})
 
 				local ButtonFrame = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
-					Size = UDim2.new(1, 0, 0, 42),
+					Size = UDim2.new(1, 0, 0, 33),
 					Parent = ItemParent
 				}), {
 					AddThemeObject(SetProps(MakeElement("Label", ButtonConfig.Name, 15), {
