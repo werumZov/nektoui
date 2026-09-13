@@ -7,8 +7,8 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
 -- Увеличенные размеры интерфейса
-local WINDOW_WIDTH = 680
-local WINDOW_HEIGHT = 420
+local WINDOW_WIDTH = 850
+local WINDOW_HEIGHT = 500
 local SIDEBAR_WIDTH = 200
 
 local OrionLib = {
@@ -538,9 +538,9 @@ function OrionLib:MakeWindow(WindowConfig)
 		MakeElement("Padding", 8, 0, 0, 8)
 	}), "Divider")
 
-	--AddConnection(TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-	--	TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
-	--end)
+	AddConnection(TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+		TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
+	end)
 
 	local CloseBtn = SetChildren(SetProps(MakeElement("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
