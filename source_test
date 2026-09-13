@@ -538,9 +538,9 @@ function OrionLib:MakeWindow(WindowConfig)
 		MakeElement("Padding", 8, 0, 0, 8)
 	}), "Divider")
 
-	AddConnection(TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-		TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
-	end)
+	--AddConnection(TabHolder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+	--	TabHolder.CanvasSize = UDim2.new(0, 0, 0, TabHolder.UIListLayout.AbsoluteContentSize.Y + 16)
+	--end)
 
 	local CloseBtn = SetChildren(SetProps(MakeElement("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
@@ -696,7 +696,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		ZIndex = 100
 	}), {
 		AddThemeObject(MakeElement("Stroke", nil, 1), "Stroke"),
-		AddThemeObject(SetProps(MakeElement("Label", "CLOSE MENU", 14), {
+		AddThemeObject(SetProps(MakeElement("Label", "CLOSE NEKTOHUB", 14), {
 			Size = UDim2.new(1, 0, 1, 0),
 			TextXAlignment = Enum.TextXAlignment.Center,
 			Font = Enum.Font.GothamBold,
@@ -717,7 +717,8 @@ function OrionLib:MakeWindow(WindowConfig)
 			UIHidden = not UIHidden
 			MainWindow.Visible = not UIHidden
 			if OpenButtonLabel then
-				OpenButtonLabel.Text = UIHidden and "OPEN MENU" or "CLOSE MENU"
+				OpenButtonLabel.Text = UIHidden and "OPEN NEKTOHUB" or "CLOSE NEKTOHUB"
+				OpenButtonLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
 			end
 		end)
 	end
