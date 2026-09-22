@@ -1,4 +1,4 @@
-
+local ui_version = "v1.0.2"
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -680,11 +680,11 @@ function OrionLib:MakeWindow(WindowConfig)
 	end	
 
 	AddDraggingFunctionality(DragPoint, MainWindow)
-	
+
 	local OpenButton = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
 		Parent = Orion,
 		Size = UDim2.new(0, 135, 0, 42),
-		Position = UDim2.new(0.5, -67, 1, -62),
+		Position = UDim2.new(0.5, -97, 1, -82),
 		BackgroundTransparency = 0,
 		Visible = true,
 		ZIndex = 100
@@ -702,7 +702,7 @@ function OrionLib:MakeWindow(WindowConfig)
 			ZIndex = 102
 		})
 	}), "Second")
-	
+
 	local OpenButtonLabel = OpenButton:FindFirstChildWhichIsA("TextLabel")
 	local OpenButtonClick = OpenButton:FindFirstChildWhichIsA("TextButton")
 	if OpenButtonClick then
@@ -1781,5 +1781,5 @@ end
 function OrionLib:Destroy()
 	Orion:Destroy()
 end
-warn("ui loaded")
+warn("ui loaded - v1.0.2")
 return OrionLib
