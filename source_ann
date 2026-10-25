@@ -1,4 +1,4 @@
-local ui_version = "v1.0.2"
+local ui_version = "v1.0.21"
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -25,6 +25,30 @@ local OrionLib = {
 	Folder = nil,
 	SaveCfg = false
 }
+
+local unlock_mouse_v = Instance.new("ScreenGui")
+unlock_mouse_v.Name = "XYIIIII_MOUSE"
+unlock_mouse_v.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+unlock_mouse_v.IgnoreGuiInset = true
+unlock_mouse_v.ResetOnSpawn = false
+
+local unlock_mouse_v2 = Instance.new("TextButton")
+unlock_mouse_v2.Name = "UnlockMouse"
+unlock_mouse_v2.Text = ""
+unlock_mouse_v2.Size = UDim2.new(0, 0, 0, 0)
+unlock_mouse_v2.Position = UDim2.new(0.9, 0, 0.9, 0)
+unlock_mouse_v2.TextTransparency = 1
+unlock_mouse_v2.Modal = true
+unlock_mouse_v2.Visible = true
+unlock_mouse_v2.BackgroundTransparency = 1
+unlock_mouse_v2.Parent = unlock_mouse_v
+
+local function lockMouse()
+	unlock_mouse_v2.Visible = false
+end
+local function unlockMouse()
+	unlock_mouse_v2.Visible = true
+end
 
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
@@ -684,7 +708,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	local OpenButton = AddThemeObject(SetChildren(SetProps(MakeElement("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
 		Parent = Orion,
 		Size = UDim2.new(0, 135, 0, 42),
-		Position = UDim2.new(0.5, -97, 1, -82),
+		Position = UDim2.new(0.5, -67, 1, -82),
 		BackgroundTransparency = 0,
 		Visible = true,
 		ZIndex = 100
@@ -703,6 +727,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		})
 	}), "Second")
 
+	local is_mobile = false
+	local user_input = game:GetService("UserInputService")
 	local OpenButtonLabel = OpenButton:FindFirstChildWhichIsA("TextLabel")
 	local OpenButtonClick = OpenButton:FindFirstChildWhichIsA("TextButton")
 	if OpenButtonClick then
@@ -718,7 +744,13 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	AddConnection(CloseBtn.MouseButton1Up, function()
 		MainWindow.Visible = true
+		unlockMouse()
 		UIHidden = false
+		if user_input.TouchEnabled then
+			MainWindow.Visible = true
+			UIHidden = false
+			is_mobile = true
+		end
 	end)
 
 	-- RightShift больше не используется для закрытия/открытия меню.
@@ -1781,5 +1813,5 @@ end
 function OrionLib:Destroy()
 	Orion:Destroy()
 end
-warn("ui loaded - v1.0.2")
+warn("ui loaded - " .. ui_version)
 return OrionLib
