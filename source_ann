@@ -5,6 +5,7 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
+Open_Gui_keybind_name = "RightShift"
 
 local OrionLib = {
 	Elements = {},
@@ -756,7 +757,11 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	-- RightShift больше не используется для закрытия/открытия меню.
 	AddConnection(UserInputService.InputBegan, function(Input)
-		-- Оставлено намеренно пустым.
+		if Input.KeyCode.Name == Open_Gui_keybind_name then
+			MainWindow.Visible = true
+			unlockMouse()
+			UIHidden = false
+		end
 	end)
 
 	AddConnection(MinimizeBtn.MouseButton1Up, function()
