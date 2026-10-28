@@ -735,6 +735,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		AddConnection(OpenButtonClick.MouseButton1Click, function()
 			UIHidden = not UIHidden
 			MainWindow.Visible = not UIHidden
+			lockMouse()
 			if OpenButtonLabel then
 				OpenButtonLabel.Text = UIHidden and "OPEN NEKTOHUB" or "CLOSE NEKTOHUB"
 				OpenButtonLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
