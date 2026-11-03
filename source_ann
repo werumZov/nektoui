@@ -757,10 +757,23 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	-- RightShift больше не используется для закрытия/открытия меню.
 	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode.Name == Open_Gui_keybind_name then
-			MainWindow.Visible = true
-			unlockMouse()
-			UIHidden = false
+		if UserInputService:GetFocusedTextBox() then return end
+		local KeyName = Open_Gui_keybind_name
+		if not KeyName or KeyName == "" then
+			KeyName = "RightShift"
+		end
+		if Input.KeyCode.Name == KeyName then
+			UIHidden = not UIHidden
+			MainWindow.Visible = not UIHidden
+			if UIHidden then
+				lockMouse()
+			else
+				unlockMouse()
+			end
+			if OpenButtonLabel then
+				OpenButtonLabel.Text = UIHidden and "OPEN NEKTOHUB" or "CLOSE NEKTOHUB"
+				OpenButtonLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+			end
 		end
 	end)
 
